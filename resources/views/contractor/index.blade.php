@@ -20,7 +20,8 @@
                 <th>Kod pocztowy kontrahenta</th>
                 <th>Miasto kontrahenta</th>
                 <th>NIP kontrahenta</th>
-                <th>Akcje</th>
+                <th>Edycja</th>
+                <th>Usuń</th>
             </tr>
             @foreach ($models as $model)
                 <tr>
@@ -29,6 +30,15 @@
                     <td>{{ $model->postcode }}</td>
                     <td>{{ $model->city }}</td>
                     <td>{{ $model->nip }}</td>
+                    <td>
+                        <a href="contractor/edit/{{$model->id}}"><button type="button" class="btn btn-success btn-sm" name="edit" value="{{$model->id}}">Edytuj</button></a>
+                    </td>
+                    <td>
+                        <form action="contractor/delete" method="post">
+                            @csrf
+                            <button type="submit" class="btn btn-danger btn-sm" name="delete" value="{{$model->id}}">Usuń</button>
+                        </form>
+                    </td>
                 </tr>
             @endforeach
         </table>

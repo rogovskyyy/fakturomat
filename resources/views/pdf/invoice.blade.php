@@ -6,13 +6,20 @@
     <link type="text/css" href="css/bootstrap-reboot.min.css" rel="stylesheet" />
     <link type="text/css" href="css/bootstrap-utilities.min.css" rel="stylesheet" />
     <style>
+        *{ font-family: DejaVu Sans !important;}
+
         body {
             font-size: 10px;
         }
-        tr {
+        td, tr {
+            border: 1px solid black;
             border-collapse:separate;
             border-spacing:5em;
         }
+        .invoice td {
+            text-align: center;
+        }
+
     </style>
 </head>
 <body>
@@ -20,8 +27,8 @@
     <table class="table" style="width: 100%;">
         <thead>
         <tr>
-            <td class="tg-0lax" colspan="4" rowspan="4">
-                <img src="https://wilcity.com/wp-content/uploads/2018/12/sample-logo-design-png-3-2.png" style="width: 200px; height: 100px;">
+            <td class="tg-0lax" colspan="2" rowspan="3">
+                <img src="https://wilcity.com/wp-content/uploads/2018/12/sample-logo-design-png-3-2.png" style="display:block; width: 200px; height: 100px;">
             </td>
             <td class="tg-0lax" colspan="2"><center><b>Faktura nr FV 1/2015</b></center></td>
         </tr>
@@ -49,13 +56,17 @@
                 60-681 Poznań <br />
                 NIP: 9721322655
             </td>
-            <td>Tekst na prawo</td>
+            <td>
+                Centrum Rozwoju Edukacji EDICON sp. z o.o.<br />
+                ul. Tadeusza Kościuszki 57 <br />
+                61-891 Poznań <br />
+                NIP: 7831728392</td>
         </tr>
     </table>
     <br /><br />
-    <table class="table" style="border: 1px solid black;">
-        <tr>
-            <th>Lp</th>
+    <table class="table invoice" style="border: 1px solid black;">
+        <tr style="text-align: center;">
+            <th>Lp.</th>
             <th>Nazwa</th>
             <th>Miara</th>
             <th>Ilość</th>
@@ -66,28 +77,23 @@
             <th>Wartość brutto</th>
         </tr>
         <tr>
-            <td>tesdasd</td>
-            <td>tesdasd</td>
-            <td>tesdasd</td>
-            <td>tesdasd</td>
-            <td>tesdasd</td>
-            <td>tesdasd</td>
-            <td>tesdasd</td>
-            <td>tesdasd</td>
-            <td>tesdasd</td>
+            <td>1</td>
+            <td>Prace programistyczne za 06.2022</td>
+            <td>rg.</td>
+            <td>140</td>
+            <td>36,00 zł</td>
+            <td>5040,00 zł</td>
+            <td>zw.</td>
+            <td>0,00 zł</td>
+            <td>5040,00 zł</td>
         </tr>
         <tr>
-            <td>tesdasd</td>
-            <td>tesdasd</td>
-            <td>tesdasd</td>
-            <td>tesdasd</td>
-            <td>tesdasd</td>
-            <td>tesdasd</td>
-            <td>tesdasd</td>
-            <td>tesdasd</td>
-            <td>tesdasd</td>
+            <td class="tg-0lax" colspan="5">Suma</td>
+            <td class="tg-0lax">5040,00 zł</td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax">0,00 zł</td>
+            <td class="tg-0lax">5040,00 zł</td>
         </tr>
     </table> <br />
-    <button type="button" class="btn btn-primary">Primary</button>
 </body>
 </html>

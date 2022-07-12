@@ -76,24 +76,35 @@
             <th>Kwota VAT</th>
             <th>Wartość brutto</th>
         </tr>
-        <tr>
-            <td>1</td>
-            <td>Prace programistyczne za 06.2022</td>
-            <td>rg.</td>
-            <td>140</td>
-            <td>36,00 zł</td>
-            <td>5040,00 zł</td>
-            <td>zw.</td>
-            <td>0,00 zł</td>
-            <td>5040,00 zł</td>
-        </tr>
-        <tr>
-            <td class="tg-0lax" colspan="5">Suma</td>
-            <td class="tg-0lax">5040,00 zł</td>
-            <td class="tg-0lax"></td>
-            <td class="tg-0lax">0,00 zł</td>
-            <td class="tg-0lax">5040,00 zł</td>
-        </tr>
+        @php
+            $i = 1;
+        @endphp
+        @foreach($data as $row)
+            <tr>
+                @php
+                    //print_r($row);
+                    //die();
+                    $wartosc_netto = $row["ilosc"] * $row["cena_netto"];
+                    $kwota_vat = ($wartosc_netto / 100) * $row["vat"];
+                @endphp
+
+                <td>{{ $i++ }}.</td>
+                <td>{{ $row["nazwa"] }}</td>
+                <td>{{ $row["miara"] }}</td>
+                <td>{{ $row["ilosc"] }}</td>
+                <td>{{ $row["cena_netto"] }} zł</td>
+                <td>{{ $row["ilosc"] * $row["cena_netto"] }} zł</td>
+                <td>
+                    @if($row["vat"] == 0)
+                        zw.
+                    @else
+                        {{ $row["vat"] }}%
+                    @endif
+                </td>
+                <td>{{ $kwota_vat }} zł</td>
+                <td>{{ $wartosc_netto + $kwota_vat }} zł</td>
+            </tr>
+        @endforeach
     </table> <br />
 </body>
 </html>

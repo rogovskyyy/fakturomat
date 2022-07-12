@@ -13,7 +13,7 @@
     </nav>
     <div class="container-fluid">
         <h1>Dodawanie faktury</h1><br /><br />
-        <form action="/invoice/add" method="post">
+        <form action="/test" method="post">
             @csrf
                 <div class="row">
                     <div class="col-6">
@@ -40,32 +40,34 @@
                     <th>Kwota VAT</th>
                     <th>Wartość brutto</th>
                 </tr>
-                <tr>
-                    <td><input type="text" name="name" class="form-control" placeholder="Nazwa usługi" aria-label="Last name"></td>
-                    <td>
-                        <select class="form-control">
-                            <option>szt.</option>
-                            <option>rg.</option>
-                        </select>
-                    </td>
-                    <td><input type="text" id='ilosc' name="name" class="form-control" placeholder="Ilość" aria-label="Last name"></td>
-                    <td><input type="text" id='cena_netto' name="name" class="form-control" placeholder="Cena netto" aria-label="Last name"></td>
-                    <td><div id="wartosc_netto">0,00</div></td>
-                    <td>
-                        <select class="form-control" id="vat">
-                            <option value="0">zw.</option>
-                            <option value="0">0 %</option>
-                            <option value="5">5 %</option>
-                            <option value="8">8 %</option>
-                            <option value="23">23 %</option>
-                        </select>
-                    </td>
-                    <td><div id="kwota_vat">0,00 zł</div></td>
-                    <td><div id="wartosc_brutto">0,00 zł</div></td>
-                </tr>
+                @for($i = 0; $i < 5; $i++)
+                    <tr>
+                        <td><input type="text" data-id="{{$i}}" name="nazwa[]" class="form-control" placeholder="Nazwa usługi" aria-label="Last name"></td>
+                        <td>
+                            <select class="form-control" name="miara[]" data-id="{{$i}}">
+                                <option>szt.</option>
+                                <option>rg.</option>
+                            </select>
+                        </td>
+                        <td><input type="text" data-id="{{$i}}" id='ilosc' name="ilosc[]" class="form-control" placeholder="Ilość" aria-label="Last name"></td>
+                        <td><input type="text" data-id="{{$i}}" id='cena_netto' name="cena_netto[]" class="form-control" placeholder="Cena netto" aria-label="Last name"></td>
+                        <td><div data-id="{{$i}}" id="wartosc_netto">0,00 zł</div></td>
+                        <td>
+                            <select class="form-control" data-id="{{$i}}" id="vat" name="vat[]">
+                                <option value="0">zw.</option>
+                                <option value="0">0 %</option>
+                                <option value="5">5 %</option>
+                                <option value="8">8 %</option>
+                                <option value="23">23 %</option>
+                            </select>
+                        </td>
+                        <td><div data-id="{{$i}}" id="kwota_vat">0,00 zł</div></td>
+                        <td><div data-id="{{$i}}" id="wartosc_brutto">0,00 zł</div></td>
+                    </tr>
+                    @endfor
             </table>
-            <button type="button" class="btn btn-danger btn-sm float-right">Dodaj</button>
-            <button type="button" class="btn btn-success btn-sm float-right">Usuń</button>
+            <button type="submit" class="btn btn-success btn-sm float-right">Dodaj nowy rząd</button>
+            <button type="button" class="btn btn-danger btn-sm float-right">Usuń</button>
 
 
         </form>
@@ -76,25 +78,30 @@
     function refresh_table() {
         let x = 0;
         $('#table tr').each(function() {
+            //console.log(x);
             if(x == 0) { }
             else {
                 // Pełna lista TD
-                let data = $(this).find('td').each (function() { });
+                let data = $(this).find('td').each (function() {
+                    //console.log("Jest ich duzo");
+                });
 
-                let ilosc = $('#ilosc').val();
-                let cena_netto = $('#cena_netto').val();
+                let ilosc = $(data[2]).find('#ilosc').val();
+                //console.log(ilosc);
+
+                let cena_netto = $(data[3]).find('#cena_netto').val();
                 let wartosc_netto = parseFloat(ilosc * cena_netto).toFixed(2);
-                $('#wartosc_netto').text(wartosc_netto + " zł");
+                $(data[4]).find('#wartosc_netto').text(wartosc_netto + " zł");
 
-                let vat = $('#vat').val();
+                let vat = $(data[5]).find('#vat').val();
 
                 let kwota_vat = parseFloat((wartosc_netto / 100) * vat).toFixed(2);
 
-                $('#kwota_vat').text(kwota_vat + " zł")
+                $(data[6]).find('#kwota_vat').text(kwota_vat + " zł")
 
                 let total = parseFloat(wartosc_netto) + parseFloat(kwota_vat);
                 let wartosc_brutto = parseFloat(total).toFixed(2);
-                $('#wartosc_brutto').text(wartosc_brutto + " zł");
+                $(data[7]).find('#wartosc_brutto').text(wartosc_brutto + " zł");
             }
             x++;
         });
@@ -108,7 +115,7 @@
         refresh_table();
     });
 
-    $('#vat').on('change', function() {
+    $('select[name="vat[]"]').on('change', function() {
         refresh_table();
     })
 

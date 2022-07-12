@@ -33,5 +33,4 @@ Route::group(['prefix' => '/invoice'], function() {
     Route::post('/delete', [InvoiceController::class, 'delete'])->name('contractor.delete.post');
 
 });
-
-Route::get('/test', [InvoiceTable::class, 'render'])->name('test.index');
+Route::post('/test', [InvoiceController::class, 'test'])->name('test.index');

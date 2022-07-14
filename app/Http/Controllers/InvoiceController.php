@@ -59,8 +59,11 @@ class InvoiceController extends Controller
         //print_r($data);
         //die();
 
+        $contractor = ContractorModel::where('id', '=', $request->get('contractor'))->first();
+        $timestamp = strtotime($request->get('invoice_date'));
+        $invoice_date = date("d.m.Y", $timestamp);
 
-        $pdf = Pdf::loadView('pdf.invoice', compact('data'));
+        $pdf = Pdf::loadView('pdf.invoice', compact('data','contractor', 'invoice_date'));
         return $pdf->download('invoice.pdf');
     }
 

@@ -18,15 +18,15 @@
                 <div class="row">
                     <div class="col-6">
                         Kontrahent:
-                        <select name="name" class="form-control" placeholder="Nazwa kontrahenta" aria-label="First name">
+                        <select name="contractor" class="form-control" placeholder="Nazwa kontrahenta" aria-label="First name">
                             @foreach($contractors as $p)
-                                <option>{{$p->name}}, {{$p->address}} (NIP : {{$p->nip}})</option>
+                                <option value="{{$p->id}}">{{$p->name}}, {{$p->address}} (NIP : {{$p->nip}})</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="col-6">
                         Data wystawienia:
-                        <input type="date" name="name" class="form-control" placeholder="Nazwa kontrahenta" aria-label="First name">
+                        <input type="date" name="invoice_date" class="form-control" placeholder="Nazwa kontrahenta" aria-label="First name">
                     </div>
                 </div> <br />
             <table class="table" id="table">
@@ -66,8 +66,10 @@
                     </tr>
                     @endfor
             </table>
-            <button type="submit" class="btn btn-success btn-sm float-right">Dodaj nowy rząd</button>
-            <button type="button" class="btn btn-danger btn-sm float-right">Usuń</button>
+            <button type="submit" class="btn btn-success btn-sm float-right">Generuj fakture</button>
+            <a href="{{ route('contractor.index') }}">
+                <button type="button" class="btn btn-danger btn-sm float-right">Anuluj</button>
+            </a>
 
 
         </form>
